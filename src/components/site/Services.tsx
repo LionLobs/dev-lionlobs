@@ -11,12 +11,12 @@ import {
   Sparkles,
 } from "lucide-react";
 import robotBg1 from "@/assets/robot-bg-1.jpg";
-import imgSmallbio from "@/assets/svc-smallbio.jpg";
-import imgLanding from "@/assets/svc-landing.jpg";
-import imgEcommerce from "@/assets/svc-ecommerce.jpg";
-import imgEcosystem from "@/assets/svc-ecosystem.jpg";
-import imgInstitutional from "@/assets/svc-institutional.jpg";
-import imgConsulting from "@/assets/svc-consulting.jpg";
+import imgSmallbio from "@/assets/robot-svc-smallbio.jpg";
+import imgLanding from "@/assets/robot-svc-landing.jpg";
+import imgEcommerce from "@/assets/robot-svc-ecommerce.jpg";
+import imgEcosystem from "@/assets/robot-svc-ecosystem.jpg";
+import imgInstitutional from "@/assets/robot-svc-institutional.jpg";
+import imgConsulting from "@/assets/robot-svc-consulting.jpg";
 
 const services = [
   {
