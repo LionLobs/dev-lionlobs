@@ -1,4 +1,5 @@
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
 import suplementosPreview from "@/assets/portfolio-suplementos.png";
 import monaPreview from "@/assets/portfolio-mona.png";
 
@@ -71,6 +72,22 @@ const previewUrl = (url: string) =>
   )}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800&waitFor=2000`;
 
 export const Portfolio = () => {
+  const perPage = 2;
+  const totalPages = Math.ceil(projects.length / perPage);
+  const [page, setPage] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => setPage((p) => (p + 1) % totalPages), 4500);
+    return () => clearInterval(id);
+  }, [paused, totalPages]);
+
+  const start = page * perPage;
+  const visible = projects.slice(start, start + perPage);
+  // Pad if last page has fewer items
+  while (visible.length < perPage) visible.push(projects[visible.length % projects.length]);
+
   return (
     <section id="portfolio" className="relative overflow-hidden py-28">
       <div className="container-app">
@@ -89,24 +106,20 @@ export const Portfolio = () => {
         </div>
 
         <div
-          className="group/marquee relative mt-14 overflow-hidden"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-          }}
+          className="relative mt-14"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
         >
-          <div className="flex w-max gap-6 animate-marquee group-hover/marquee:[animation-play-state:paused]">
-            {[...projects, ...projects].map((p, i) => (
+          <div className="grid gap-6 md:grid-cols-2">
+            {visible.map((p, i) => (
               <a
-                key={`${p.name}-${i}`}
+                key={`${page}-${p.name}-${i}`}
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative w-[320px] shrink-0 overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold sm:w-[380px]"
+                style={{ animationDelay: `${i * 140}ms`, animationFillMode: "both" }}
+                className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold animate-[fade-in_0.6s_ease-out,scale-in_0.5s_ease-out]"
               >
-                {/* Live website preview */}
                 <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
                   <img
                     src={p.previewOverride ?? previewUrl(p.url)}
@@ -159,6 +172,41 @@ export const Portfolio = () => {
                 </div>
               </a>
             ))}
+          </div>
+
+          {/* Controls */}
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <button
+              type="button"
+              aria-label="Anterior"
+              onClick={() => setPage((p) => (p - 1 + totalPages) % totalPages)}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold transition-all hover:bg-gold hover:text-primary-foreground"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            <div className="flex items-center gap-2">
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Ir para página ${i + 1}`}
+                  onClick={() => setPage(i)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    i === page ? "w-8 bg-gold" : "w-2 bg-gold/30 hover:bg-gold/60"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              aria-label="Próximo"
+              onClick={() => setPage((p) => (p + 1) % totalPages)}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold transition-all hover:bg-gold hover:text-primary-foreground"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </div>
