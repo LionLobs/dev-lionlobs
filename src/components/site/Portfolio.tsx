@@ -117,8 +117,9 @@ export const Portfolio = () => {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ animationDelay: `${i * 140}ms`, animationFillMode: "both" }}
-                className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold animate-[fade-in_0.6s_ease-out,scale-in_0.5s_ease-out]"
+                className={`group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold ${
+                  i === 0 ? "animate-slide-in-left" : "animate-slide-in-right"
+                }`}
               >
                 <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
                   <img
