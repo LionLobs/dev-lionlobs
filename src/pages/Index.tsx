@@ -5,13 +5,17 @@ import { Portfolio } from "@/components/site/Portfolio";
 import { About } from "@/components/site/About";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
+import { FloatingOrbs } from "@/components/site/FloatingOrbs";
+import { Marquee } from "@/components/site/Marquee";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <FloatingOrbs />
       <Navbar />
       <main>
         <Hero />
+        <Marquee />
         <Services />
         <Portfolio />
         <About />

@@ -15,20 +15,31 @@ export const About = () => {
         <div className="relative">
           <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-20 blur-3xl" />
 
+          {/* Decorative rotating ring behind images */}
+          <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 opacity-30 animate-spin-slow">
+            <div className="ring-conic h-full w-full rounded-full" />
+            <div className="absolute inset-2 rounded-full bg-background" />
+          </div>
+          <div className="pointer-events-none absolute -bottom-12 right-10 h-24 w-24 opacity-40 animate-spin-reverse">
+            <div className="ring-conic h-full w-full rounded-full" />
+            <div className="absolute inset-1.5 rounded-full bg-background" />
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
-            <div className="overflow-hidden rounded-2xl border border-gold/20 shadow-gold">
+            <div className="img-shaded group overflow-hidden rounded-2xl border border-gold/20 shadow-gold">
               <img
                 src={agatha1}
                 alt="Agatha Scudero, CEO da LionLobs"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                className="h-full w-full object-cover animate-ken-burns transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"
               />
             </div>
-            <div className="mt-12 overflow-hidden rounded-2xl border border-gold/20 shadow-gold">
+            <div className="img-shaded group mt-12 overflow-hidden rounded-2xl border border-gold/20 shadow-gold">
               <img
                 src={agatha2}
                 alt="Agatha Scudero em sessão estratégica"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                className="h-full w-full object-cover animate-ken-burns transition-transform duration-700 group-hover:scale-110"
+                style={{ animationDelay: "-8s" }}
                 loading="lazy"
               />
             </div>
