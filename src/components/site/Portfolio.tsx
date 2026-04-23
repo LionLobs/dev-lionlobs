@@ -15,6 +15,9 @@ type Repo = {
 
 const GH_USER = "LionLobs";
 
+// Repos to hide from the portfolio
+const EXCLUDED = ["vanessa-clasen-archives", "vanessa-archives-collection", "cart-template-hub"];
+
 // Pretty title from slug
 const prettify = (slug: string) =>
   slug
@@ -40,8 +43,9 @@ export const Portfolio = () => {
         if (!r.ok) throw new Error("GitHub API");
         return r.json() as Promise<Repo[]>;
       })
-      .then((data) => {
+      .then((raw) => {
         if (cancelled) return;
+        const data = raw.filter((r) => !EXCLUDED.includes(r.name.toLowerCase()));
         // Prioritize repos with a homepage (live demo), then by stars/updated
         const sorted = [...data].sort((a, b) => {
           const ah = a.homepage ? 1 : 0;
