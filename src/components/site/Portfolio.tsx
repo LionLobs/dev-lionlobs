@@ -37,6 +37,8 @@ const projects: Project[] = [
     name: "Modelo Suplementos",
     category: "E-commerce · Modelo",
     url: "https://lionlobs.github.io/modelosite-suplementos/",
+    previewOverride:
+      "https://api.microlink.io/?url=https%3A%2F%2Flionlobs.github.io%2Fmodelosite-suplementos%2F&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800&waitFor=4000&force=true&v=2",
     description:
       "Modelo de loja virtual para suplementos — catálogo, destaques de produtos e checkout integrado.",
     tags: ["E-commerce", "Catálogo", "Loja"],
