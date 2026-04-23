@@ -1,7 +1,7 @@
 import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
-import suplementosPreview from "@/assets/portfolio-suplementos.png";
-import monaPreview from "@/assets/portfolio-mona.png";
+import suplementosPreview from "@/assets/portfolio-suplementos.jpg";
+import monaPreview from "@/assets/portfolio-mona.jpg";
 
 type Project = {
   name: string;

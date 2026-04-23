@@ -34,11 +34,15 @@ export const Hero = () => {
 
   return (
     <section id="top" className="relative isolate min-h-screen overflow-hidden pt-32">
-      {/* Background — suspense robot */}
-      <div
-        className="absolute inset-0 -z-10 bg-cover bg-center opacity-90"
-        style={{ backgroundImage: `url(${heroBg})`, backgroundPosition: "center 30%" }}
+      {/* Background — suspense robot (preloaded) */}
+      <img
+        src={heroBg}
+        alt=""
         aria-hidden
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-90"
+        style={{ objectPosition: "center 30%" }}
       />
       {/* Vignette + dark fades for legibility */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-background/20" aria-hidden />
