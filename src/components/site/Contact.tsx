@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Instagram, Mail, MessageCircle, Send } from "lucide-react";
+import { Github, Instagram, Mail, MessageCircle, Send } from "lucide-react";
 import { toast } from "sonner";
+
+const PHONE_AGATHA = "5548984380321";
+const PHONE_EMANUELLE = "5541988204539";
 
 export const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -12,12 +15,11 @@ export const Contact = () => {
     const name = String(data.get("name") || "");
     const message = String(data.get("message") || "");
     const service = String(data.get("service") || "");
-    const phone = "5500000000000"; // TODO: substituir pelo WhatsApp da Agatha
     const text = encodeURIComponent(
       `Olá LionLobs! Sou ${name}.\nServiço de interesse: ${service}\n\n${message}`,
     );
     setTimeout(() => {
-      window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+      window.open(`https://wa.me/${PHONE_AGATHA}?text=${text}`, "_blank");
       toast.success("Abrindo WhatsApp para finalizar o contato.");
       setLoading(false);
       (e.target as HTMLFormElement).reset();
@@ -39,7 +41,7 @@ export const Contact = () => {
 
           <div className="mt-10 space-y-4">
             <a
-              href="https://wa.me/5500000000000"
+              href={`https://wa.me/${PHONE_AGATHA}`}
               target="_blank"
               rel="noreferrer"
               className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-card/60 p-5 transition-all hover:border-gold/50 hover:bg-gold/5"
@@ -48,8 +50,22 @@ export const Contact = () => {
                 <MessageCircle className="h-5 w-5" />
               </div>
               <div>
-                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">WhatsApp</div>
-                <div className="font-medium">Falar agora com a equipe</div>
+                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">WhatsApp · Agatha</div>
+                <div className="font-medium">(48) 98438-0321</div>
+              </div>
+            </a>
+            <a
+              href={`https://wa.me/${PHONE_EMANUELLE}`}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-card/60 p-5 transition-all hover:border-gold/50 hover:bg-gold/5"
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground">
+                <MessageCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">WhatsApp · Emanuelle</div>
+                <div className="font-medium">(41) 98820-4539</div>
               </div>
             </a>
             <a
@@ -64,20 +80,36 @@ export const Contact = () => {
                 <div className="font-medium">contato@lionlobs.com</div>
               </div>
             </a>
-            <a
-              href="https://instagram.com/lionlobs"
-              target="_blank"
-              rel="noreferrer"
-              className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-card/60 p-5 transition-all hover:border-gold/50 hover:bg-gold/5"
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground">
-                <Instagram className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Instagram</div>
-                <div className="font-medium">@lionlobs</div>
-              </div>
-            </a>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <a
+                href="https://instagram.com/lionlobs"
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-card/60 p-5 transition-all hover:border-gold/50 hover:bg-gold/5"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground">
+                  <Instagram className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Instagram</div>
+                  <div className="font-medium">@lionlobs</div>
+                </div>
+              </a>
+              <a
+                href="https://github.com/lionlobs"
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-card/60 p-5 transition-all hover:border-gold/50 hover:bg-gold/5"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground">
+                  <Github className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">GitHub</div>
+                  <div className="font-medium">@lionlobs</div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Instagram, Mail, MessageCircle } from "lucide-react";
+import { Github, Instagram, Mail, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo-lionlobs-white.png";
 
 export const Footer = () => {
@@ -24,14 +24,22 @@ export const Footer = () => {
 
         <div>
           <h4 className="text-xs font-medium uppercase tracking-[0.3em] text-gold">Conecte-se</h4>
+          <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground">
+            <li>Agatha · (48) 98438-0321</li>
+            <li>Emanuelle · (41) 98820-4539</li>
+          </ul>
           <div className="mt-4 flex gap-3">
-            <a href="https://wa.me/5500000000000" target="_blank" rel="noreferrer" aria-label="WhatsApp"
+            <a href="https://wa.me/5548984380321" target="_blank" rel="noreferrer" aria-label="WhatsApp Agatha"
                className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 text-gold-light transition-colors hover:bg-gold hover:text-primary-foreground">
               <MessageCircle className="h-4 w-4" />
             </a>
             <a href="https://instagram.com/lionlobs" target="_blank" rel="noreferrer" aria-label="Instagram"
                className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 text-gold-light transition-colors hover:bg-gold hover:text-primary-foreground">
               <Instagram className="h-4 w-4" />
+            </a>
+            <a href="https://github.com/lionlobs" target="_blank" rel="noreferrer" aria-label="GitHub"
+               className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 text-gold-light transition-colors hover:bg-gold hover:text-primary-foreground">
+              <Github className="h-4 w-4" />
             </a>
             <a href="mailto:contato@lionlobs.com" aria-label="E-mail"
                className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 text-gold-light transition-colors hover:bg-gold hover:text-primary-foreground">
