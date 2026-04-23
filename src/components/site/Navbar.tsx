@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/logo-lionlobs.png";
+import logo from "@/assets/logo-lionlobs-white.png";
 
 const links = [
   { href: "#servicos", label: "Serviços" },
