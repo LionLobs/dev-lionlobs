@@ -44,7 +44,7 @@ const projects: Project[] = [
   {
     name: "Camila Cavinatti",
     category: "Smallbio Premium",
-    url: "https://camila-cavinatti-glow.vercel.app",
+    url: "https://joy-forge-tools.vercel.app",
     description:
       "Smallbio premium com design exclusivo, links rastreáveis e identidade visual sofisticada.",
     tags: ["Smallbio", "Personal Brand", "Premium"],
