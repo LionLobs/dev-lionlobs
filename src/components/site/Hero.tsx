@@ -34,15 +34,18 @@ export const Hero = () => {
 
   return (
     <section id="top" className="relative min-h-screen overflow-hidden pt-32">
-      {/* Background */}
+      {/* Background — suspense robot */}
       <div
-        className="absolute inset-0 -z-10 bg-cover bg-center opacity-60"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        className="absolute inset-0 -z-10 bg-cover bg-center opacity-90"
+        style={{ backgroundImage: `url(${heroBg})`, backgroundPosition: "center 30%" }}
         aria-hidden
       />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-background/80 to-background" aria-hidden />
-      <div className="absolute -top-40 -left-40 -z-10 h-[500px] w-[500px] rounded-full bg-gold/20 blur-[120px]" aria-hidden />
-      <div className="absolute bottom-0 right-0 -z-10 h-[400px] w-[400px] rounded-full bg-gold-deep/30 blur-[120px]" aria-hidden />
+      {/* Vignette + dark fades for legibility */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-background/20" aria-hidden />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/50 via-transparent to-background" aria-hidden />
+      <div className="absolute inset-0 -z-10 shadow-[inset_0_0_200px_hsl(0_0%_0%/0.9)]" aria-hidden />
+      <div className="absolute -top-40 -left-40 -z-10 h-[500px] w-[500px] rounded-full bg-gold/15 blur-[120px]" aria-hidden />
+      <div className="absolute bottom-0 right-0 -z-10 h-[400px] w-[400px] rounded-full bg-gold-deep/25 blur-[120px]" aria-hidden />
 
       <div className="container-app grid items-center gap-12 lg:grid-cols-2">
         <div className="animate-fade-up">
