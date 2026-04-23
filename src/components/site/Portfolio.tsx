@@ -6,6 +6,7 @@ type Project = {
   url: string;
   description: string;
   tags: string[];
+  previewOverride?: string;
 };
 
 const projects: Project[] = [
