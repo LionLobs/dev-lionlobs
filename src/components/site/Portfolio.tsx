@@ -1,4 +1,5 @@
 import { ArrowUpRight, ExternalLink } from "lucide-react";
+import suplementosPreview from "@/assets/portfolio-suplementos.png";
 
 type Project = {
   name: string;
