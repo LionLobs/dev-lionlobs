@@ -64,8 +64,9 @@ export const Services = () => {
               <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gold/10 blur-3xl transition-opacity opacity-0 group-hover:opacity-100" />
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground shadow-gold">
-                <s.icon className="h-5 w-5" />
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground shadow-gold">
+                <s.icon className="h-5 w-5 transition-transform duration-500 group-hover:rotate-12" />
+                <span className="absolute inset-0 rounded-xl ring-2 ring-gold/40 opacity-0 group-hover:opacity-100 group-hover:animate-pulse-ring" />
               </div>
 
               <h3 className="mt-6 font-serif text-2xl">{s.title}</h3>

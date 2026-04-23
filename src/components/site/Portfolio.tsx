@@ -53,12 +53,21 @@ export const Portfolio = () => {
               key={p.title}
               className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 transition-all duration-500 hover:border-gold/50 hover:-translate-y-1"
             >
-              <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${p.accent}`}>
+              <div className={`img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${p.accent}`}>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--gold)/0.25),transparent_60%)]" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-serif text-6xl text-gradient-gold opacity-80">{p.title.charAt(0)}</span>
+                {/* Rotating decorative ring */}
+                <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 opacity-20 animate-spin-slow">
+                  <div className="ring-conic h-full w-full rounded-full" />
                 </div>
-                <div className="absolute inset-0 bg-background/0 transition-colors group-hover:bg-background/20" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-serif text-7xl text-gradient-gold opacity-80 transition-transform duration-700 group-hover:scale-110">
+                    {p.title.charAt(0)}
+                  </span>
+                </div>
+                {/* Shine sweep on hover */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100">
+                  <div className="absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-gold/30 to-transparent animate-shine" />
+                </div>
               </div>
 
               <div className="p-7">
