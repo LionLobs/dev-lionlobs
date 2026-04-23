@@ -1,4 +1,5 @@
 import { Briefcase, Globe, Layers, Rocket, ShoppingBag, Sparkles } from "lucide-react";
+import robotBg1 from "@/assets/robot-bg-1.jpg";
 
 const services = [
   {
@@ -41,7 +42,16 @@ const services = [
 
 export const Services = () => {
   return (
-    <section id="servicos" className="relative py-28">
+    <section id="servicos" className="relative overflow-hidden py-28">
+      {/* Robotic background — right side, heavily shaded */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[55%] bg-cover bg-center opacity-[0.18] md:block"
+        style={{ backgroundImage: `url(${robotBg1})` }}
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/95 to-background/40" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_30%,hsl(var(--background))_85%)]" aria-hidden />
+
       <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       <div className="container-app">
         <div className="mx-auto max-w-2xl text-center">

@@ -1,6 +1,7 @@
 import { Award, Target, Users } from "lucide-react";
 import agatha1 from "@/assets/agatha-1.jpg";
 import agatha2 from "@/assets/agatha-2.jpg";
+import robotBg3 from "@/assets/robot-bg-3.jpg";
 
 const pillars = [
   { icon: Target, title: "Estratégia primeiro", desc: "Cada site nasce de um diagnóstico real do seu negócio e do seu público." },
@@ -10,7 +11,15 @@ const pillars = [
 
 export const About = () => {
   return (
-    <section id="sobre" className="relative py-28">
+    <section id="sobre" className="relative overflow-hidden py-28">
+      {/* Mechanical gears background — bottom, heavily shaded */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70%] bg-cover bg-center opacity-[0.12]"
+        style={{ backgroundImage: `url(${robotBg3})` }}
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-background via-background/95 to-background" aria-hidden />
+
       <div className="container-app grid gap-16 lg:grid-cols-2 lg:items-center">
         <div className="relative">
           <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-20 blur-3xl" />
