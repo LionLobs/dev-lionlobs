@@ -42,14 +42,6 @@ const projects: Project[] = [
     tags: ["E-commerce", "Catálogo", "Loja"],
   },
   {
-    name: "SC Laser",
-    category: "Clínica · App de Agendamento",
-    url: "https://cart-template-hub.vercel.app",
-    description:
-      "Modelo para clínicas grandes com aplicativo integrado de agendamento e cancelamento de serviços.",
-    tags: ["Clínica", "App", "Agendamento"],
-  },
-  {
     name: "Camila Cavinatti",
     category: "Smallbio Premium",
     url: "https://camila-cavinatti-glow.vercel.app",
