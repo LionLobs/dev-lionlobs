@@ -1,6 +1,4 @@
 import { Award, Target, Users } from "lucide-react";
-import agathaPortrait from "@/assets/agatha-new.jpg";
-import emanuellePortrait from "@/assets/emanuelle.jpg";
 import foundersBg from "@/assets/founders-bg.jpg";
 import robotBg3 from "@/assets/robot-bg-3.jpg";
 
@@ -8,19 +6,6 @@ const pillars = [
   { icon: Target, title: "Estratégia primeiro", desc: "Cada projeto nasce de um diagnóstico real do seu negócio e do seu público." },
   { icon: Award, title: "Design premium", desc: "Identidade visual sofisticada, alinhada ao posicionamento da sua marca." },
   { icon: Users, title: "Parceria de longo prazo", desc: "Suporte contínuo, otimizações e evolução do seu ecossistema digital." },
-];
-
-const founders = [
-  {
-    name: "Agatha Scudero",
-    role: "Co-fundadora & CEO",
-    img: agathaPortrait,
-  },
-  {
-    name: "Emanuelle",
-    role: "Co-fundadora & Sócia",
-    img: emanuellePortrait,
-  },
 ];
 
 export const About = () => {
