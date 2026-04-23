@@ -11,12 +11,12 @@ import {
   Sparkles,
 } from "lucide-react";
 import robotBg1 from "@/assets/robot-bg-1.jpg";
-import imgSmallbio from "@/assets/svc-smallbio.jpg";
-import imgLanding from "@/assets/svc-landing.jpg";
-import imgEcommerce from "@/assets/svc-ecommerce.jpg";
-import imgEcosystem from "@/assets/svc-ecosystem.jpg";
-import imgInstitutional from "@/assets/svc-institutional.jpg";
-import imgConsulting from "@/assets/svc-consulting.jpg";
+import imgSmallbio from "@/assets/robot-svc-smallbio.jpg";
+import imgLanding from "@/assets/robot-svc-landing.jpg";
+import imgEcommerce from "@/assets/robot-svc-ecommerce.jpg";
+import imgEcosystem from "@/assets/robot-svc-ecosystem.jpg";
+import imgInstitutional from "@/assets/robot-svc-institutional.jpg";
+import imgConsulting from "@/assets/robot-svc-consulting.jpg";
 
 const services = [
   {
@@ -134,35 +134,47 @@ export const Services = () => {
             <article
               key={s.title}
               data-card
-              className="group relative shrink-0 snap-start overflow-hidden rounded-2xl border border-gold/15 bg-card/70 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:shadow-gold hover:-translate-y-1 w-[85vw] sm:w-[420px]"
+              className="group relative shrink-0 snap-start overflow-hidden rounded-2xl border border-gold/20 transition-all duration-500 hover:border-gold/60 hover:shadow-gold hover:-translate-y-1 w-[85vw] sm:w-[420px] h-[520px]"
               style={{ animationDelay: `${i * 80}ms` }}
             >
-              {/* Image with shading */}
-              <div className="img-shaded relative h-52 overflow-hidden">
-                <img
-                  src={s.img}
-                  alt={s.title}
-                  loading="lazy"
-                  width={1024}
-                  height={768}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground shadow-gold">
-                  <s.icon className="h-5 w-5" />
-                </div>
+              {/* Robotic background image */}
+              <img
+                src={s.img}
+                alt={s.title}
+                loading="lazy"
+                width={1024}
+                height={768}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+              />
+
+              {/* Creative shading: radial spotlight + bottom gradient + vignette + gold tint */}
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--gold)/0.25),transparent_55%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/85 via-40% to-background/10" />
+              <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_140px_hsl(0_0%_0%/0.85)]" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gold/10 mix-blend-overlay" />
+
+              {/* Shine sweep on hover */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <div className="absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-gold/25 to-transparent animate-shine" />
               </div>
 
-              <div className="relative p-7">
-                <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              {/* Icon badge */}
+              <div className="absolute left-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground shadow-gold">
+                <s.icon className="h-5 w-5" />
+              </div>
 
-                <h3 className="font-serif text-2xl">{s.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              {/* Content anchored to bottom */}
+              <div className="absolute inset-x-0 bottom-0 z-10 p-7">
+                <div className="absolute inset-x-7 -top-px h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
-                <div className="mt-5 flex flex-wrap gap-2">
+                <h3 className="font-serif text-3xl text-foreground drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">{s.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground line-clamp-3">{s.desc}</p>
+
+                <div className="mt-4 flex flex-wrap gap-2">
                   {s.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-gold/20 bg-gold/5 px-3 py-1 text-[11px] font-medium tracking-wide text-gold-light"
+                      className="rounded-full border border-gold/30 bg-background/60 px-3 py-1 text-[11px] font-medium tracking-wide text-gold-light backdrop-blur"
                     >
                       {t}
                     </span>
@@ -171,7 +183,7 @@ export const Services = () => {
 
                 <a
                   href="#contato"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold transition-colors hover:text-gold-light"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
                 >
                   Solicitar orçamento
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
