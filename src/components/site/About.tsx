@@ -57,32 +57,56 @@ export const About = () => {
             <div className="absolute inset-1.5 rounded-full bg-background" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {founders.map((f, i) => (
-              <div
-                key={f.name}
-                className={`img-shaded group relative overflow-hidden rounded-2xl border border-gold/20 shadow-gold ${
-                  i === 1 ? "mt-12" : ""
-                }`}
-              >
-                <img
-                  src={f.img}
-                  alt={`${f.name}, ${f.role} da LionLobs`}
-                  loading="lazy"
-                  className="aspect-[3/4] h-full w-full object-cover animate-ken-burns transition-transform duration-700 group-hover:scale-110"
-                  style={i === 1 ? { animationDelay: "-8s" } : undefined}
-                />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent p-4">
-                  <div className="font-serif text-lg leading-tight text-foreground">{f.name}</div>
-                  <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">{f.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Artistic merged composition — both founders together, low opacity */}
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-gold/25 shadow-gold">
+            {/* Base portrait — full color but muted */}
+            <img
+              src={foundersBg}
+              alt="Agatha Scudero e Emanuelle, sócias-fundadoras da LionLobs"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover opacity-70 animate-ken-burns"
+              style={{ filter: "contrast(1.05) saturate(0.85) brightness(0.85)" }}
+            />
+            {/* Gold duotone wash */}
+            <div
+              className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+              style={{
+                background:
+                  "linear-gradient(135deg, hsl(var(--gold) / 0.55), hsl(var(--gold-deep) / 0.35))",
+              }}
+              aria-hidden
+            />
+            {/* Atmospheric vignette */}
+            <div
+              className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_hsl(0_0%_0%/0.95)]"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/15 to-background/55"
+              aria-hidden
+            />
+            {/* Bottom radial fade so names breathe */}
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent"
+              aria-hidden
+            />
 
-          <div className="absolute -bottom-6 -left-6 hidden rounded-2xl border border-gold/30 bg-card/90 p-5 backdrop-blur-xl shadow-glow md:block">
-            <div className="font-serif text-2xl text-gradient-gold">Agatha & Emanuelle</div>
-            <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Sócias-fundadoras</div>
+            {/* Names — typographic stack */}
+            <div className="absolute inset-x-0 bottom-0 p-7">
+              <div className="text-[10px] uppercase tracking-[0.4em] text-gold">Sócias-fundadoras</div>
+              <div className="mt-2 flex items-baseline gap-3 font-serif text-3xl leading-none md:text-4xl">
+                <span className="text-foreground">Agatha</span>
+                <span className="text-gold-light/70 italic">&amp;</span>
+                <span className="text-foreground">Emanuelle</span>
+              </div>
+              <div className="mt-3 h-px w-24 bg-gradient-to-r from-gold to-transparent" />
+            </div>
+
+            {/* Top corner mark */}
+            <div className="absolute left-6 top-6 flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-gold-light/80">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+              LionLobs · est. duo
+            </div>
           </div>
         </div>
 
