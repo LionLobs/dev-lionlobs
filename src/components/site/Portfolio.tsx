@@ -1,106 +1,186 @@
-import { ArrowUpRight } from "lucide-react";
-import robotBg2 from "@/assets/robot-bg-2.jpg";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, ExternalLink, Github, Star } from "lucide-react";
 
-const projects = [
-  {
-    title: "Boutique Aurora",
-    category: "E-commerce de moda",
-    desc: "Loja virtual completa com catálogo dinâmico, checkout integrado e identidade visual premium.",
-    tags: ["E-commerce", "Branding", "UI/UX"],
-    accent: "from-amber-500/30 to-yellow-700/20",
-  },
-  {
-    title: "Dra. Marina Rocha",
-    category: "Smallbio + Landing",
-    desc: "Bio premium e landing de captação para profissional da saúde com integração WhatsApp e agendamento.",
-    tags: ["Smallbio", "Landing", "WhatsApp"],
-    accent: "from-yellow-600/30 to-orange-800/20",
-  },
-  {
-    title: "Studio Felina",
-    category: "Ecossistema Digital",
-    desc: "Site institucional, blog, automações e CRM unificados — tudo conectado em uma operação 360°.",
-    tags: ["Ecossistema", "Automação", "CRM"],
-    accent: "from-amber-700/30 to-amber-900/20",
-  },
-  {
-    title: "Lançamento Vênus",
-    category: "Landing Page Express",
-    desc: "Página de lançamento com copy persuasiva, gatilhos visuais e foco em alta conversão.",
-    tags: ["Landing", "Copy", "Conversão"],
-    accent: "from-yellow-500/30 to-amber-800/20",
-  },
-];
+type Repo = {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  language: string | null;
+  stargazers_count: number;
+  topics?: string[];
+  updated_at: string;
+};
+
+const GH_USER = "LionLobs";
+
+// Pretty title from slug
+const prettify = (slug: string) =>
+  slug
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+// Live screenshot via microlink (free, no key needed for low volume)
+const previewUrl = (url: string) =>
+  `https://api.microlink.io/?url=${encodeURIComponent(
+    url
+  )}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800&waitFor=1500`;
 
 export const Portfolio = () => {
+  const [repos, setRepos] = useState<Repo[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(
+      `https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=30`
+    )
+      .then((r) => {
+        if (!r.ok) throw new Error("GitHub API");
+        return r.json() as Promise<Repo[]>;
+      })
+      .then((data) => {
+        if (cancelled) return;
+        // Prioritize repos with a homepage (live demo), then by stars/updated
+        const sorted = [...data].sort((a, b) => {
+          const ah = a.homepage ? 1 : 0;
+          const bh = b.homepage ? 1 : 0;
+          if (ah !== bh) return bh - ah;
+          if (b.stargazers_count !== a.stargazers_count)
+            return b.stargazers_count - a.stargazers_count;
+          return (
+            new Date(b.updated_at).getTime() -
+            new Date(a.updated_at).getTime()
+          );
+        });
+        setRepos(sorted.slice(0, 9));
+      })
+      .catch((e) => !cancelled && setError(e.message));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section id="portfolio" className="relative overflow-hidden py-28">
-      {/* Robotic hand background — left side, heavily shaded */}
-      <div
-        className="pointer-events-none absolute inset-y-0 left-0 -z-10 hidden w-[60%] bg-cover bg-center opacity-[0.15] md:block"
-        style={{ backgroundImage: `url(${robotBg2})` }}
-        aria-hidden
-      />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-l from-background via-background/95 to-background/30" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_25%,hsl(var(--background))_85%)]" aria-hidden />
-
       <div className="container-app">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <span className="text-xs font-medium uppercase tracking-[0.3em] text-gold">Portfólio</span>
+            <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-gold">
+              <Github className="h-3.5 w-3.5" /> Portfólio · GitHub @{GH_USER}
+            </span>
             <h2 className="mt-4 font-serif text-4xl md:text-6xl">
               Projetos que <span className="text-gradient-gold italic">rugem</span> resultados
             </h2>
           </div>
-          <p className="max-w-md text-muted-foreground">
-            Uma seleção de cases entregues pela LionLobs — cada projeto é construído com estratégia, propósito e atenção a cada detalhe.
-          </p>
+          <a
+            href={`https://github.com/${GH_USER}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-gold/10 hover:border-gold"
+          >
+            <Github className="h-4 w-4" /> Ver todos no GitHub
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {projects.map((p) => (
-            <article
-              key={p.title}
-              className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 transition-all duration-500 hover:border-gold/50 hover:-translate-y-1"
-            >
-              <div className={`img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${p.accent}`}>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--gold)/0.25),transparent_60%)]" />
-                {/* Rotating decorative ring */}
-                <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 opacity-20 animate-spin-slow">
-                  <div className="ring-conic h-full w-full rounded-full" />
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-serif text-7xl text-gradient-gold opacity-80 transition-transform duration-700 group-hover:scale-110">
-                    {p.title.charAt(0)}
-                  </span>
-                </div>
-                {/* Shine sweep on hover */}
-                <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100">
-                  <div className="absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-gold/30 to-transparent animate-shine" />
-                </div>
-              </div>
+        {error && (
+          <p className="mt-10 text-sm text-muted-foreground">
+            Não foi possível carregar os repositórios agora. Acesse direto em{" "}
+            <a className="text-gold underline" href={`https://github.com/${GH_USER}`}>
+              github.com/{GH_USER}
+            </a>
+          </p>
+        )}
 
-              <div className="p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <span className="text-xs uppercase tracking-[0.2em] text-gold">{p.category}</span>
-                    <h3 className="mt-2 font-serif text-3xl">{p.title}</h3>
-                  </div>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold transition-all group-hover:bg-gold group-hover:text-primary-foreground group-hover:rotate-45">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </div>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {p.tags.map((t) => (
-                    <span key={t} className="rounded-full border border-gold/20 bg-gold/5 px-3 py-1 text-[11px] font-medium text-gold-light">
-                      {t}
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {(repos ?? Array.from({ length: 6 })).map((r, i) => {
+            const repo = r as Repo | undefined;
+            return (
+              <article
+                key={repo?.id ?? i}
+                className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold"
+              >
+                {/* Preview / Skeleton */}
+                <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
+                  {repo?.homepage ? (
+                    <img
+                      src={previewUrl(repo.homepage)}
+                      alt={`Preview de ${repo.name}`}
+                      loading="lazy"
+                      className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <span className="font-serif text-6xl text-gradient-gold opacity-70">
+                        {repo?.name?.charAt(0).toUpperCase() ?? "•"}
+                      </span>
+                    </div>
+                  )}
+                  {/* Language badge */}
+                  {repo?.language && (
+                    <span className="absolute left-4 top-4 z-10 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-gold-light backdrop-blur">
+                      {repo.language}
                     </span>
-                  ))}
+                  )}
+                  {repo && repo.stargazers_count > 0 && (
+                    <span className="absolute right-4 top-4 z-10 inline-flex items-center gap-1 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium text-gold-light backdrop-blur">
+                      <Star className="h-3 w-3" /> {repo.stargazers_count}
+                    </span>
+                  )}
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
+                        {repo?.homepage ? "Site no ar" : "Repositório"}
+                      </span>
+                      <h3 className="mt-1.5 truncate font-serif text-2xl">
+                        {repo ? prettify(repo.name) : "Carregando…"}
+                      </h3>
+                    </div>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold transition-all group-hover:bg-gold group-hover:text-primary-foreground group-hover:rotate-45">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </span>
+                  </div>
+
+                  {repo?.description && (
+                    <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                      {repo.description}
+                    </p>
+                  )}
+
+                  {repo && (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      <a
+                        href={repo.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/5 px-3 py-1.5 text-[11px] font-medium text-gold-light transition-colors hover:border-gold/60"
+                      >
+                        <Github className="h-3 w-3" /> Código
+                      </a>
+                      {repo.homepage && (
+                        <a
+                          href={repo.homepage}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded-full bg-gradient-gold px-3 py-1.5 text-[11px] font-semibold text-primary-foreground shadow-gold"
+                        >
+                          <ExternalLink className="h-3 w-3" /> Visitar site
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
