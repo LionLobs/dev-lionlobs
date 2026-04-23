@@ -90,7 +90,7 @@ export const Portfolio = () => {
               {/* Live website preview */}
               <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
                 <img
-                  src={previewUrl(p.url)}
+                  src={p.previewOverride ?? previewUrl(p.url)}
                   alt={`Preview do site ${p.name}`}
                   loading="lazy"
                   className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
