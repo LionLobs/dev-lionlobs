@@ -6,6 +6,7 @@ import { About } from "@/components/site/About";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { FloatingOrbs } from "@/components/site/FloatingOrbs";
+import { Marquee } from "@/components/site/Marquee";
 
 const Index = () => {
   return (
