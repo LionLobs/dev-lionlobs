@@ -33,7 +33,7 @@ export const Hero = () => {
   }, [lineIdx]);
 
   return (
-    <section id="top" className="relative min-h-screen overflow-hidden pt-32">
+    <section id="top" className="relative isolate min-h-screen overflow-hidden pt-32">
       {/* Background — suspense robot */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center opacity-90"
