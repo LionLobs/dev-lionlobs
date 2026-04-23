@@ -88,69 +88,78 @@ export const Portfolio = () => {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
-            <a
-              key={p.name}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold"
-            >
-              {/* Live website preview */}
-              <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
-                <img
-                  src={p.previewOverride ?? previewUrl(p.url)}
-                  alt={`Preview do site ${p.name}`}
-                  loading="lazy"
-                  className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  onError={(e) => {
-                    const t = e.currentTarget as HTMLImageElement;
-                    t.style.display = "none";
-                  }}
-                />
-                <span className="absolute left-4 top-4 z-10 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-gold-light backdrop-blur">
-                  Site no ar
-                </span>
-                {/* Shine on hover */}
-                <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <div className="absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-gold/25 to-transparent animate-shine" />
-                </div>
-              </div>
-
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
-                      {p.category}
-                    </span>
-                    <h3 className="mt-1.5 font-serif text-2xl">{p.name}</h3>
+        <div
+          className="group/marquee relative mt-14 overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          }}
+        >
+          <div className="flex w-max gap-6 animate-marquee group-hover/marquee:[animation-play-state:paused]">
+            {[...projects, ...projects].map((p, i) => (
+              <a
+                key={`${p.name}-${i}`}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-[320px] shrink-0 overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold sm:w-[380px]"
+              >
+                {/* Live website preview */}
+                <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
+                  <img
+                    src={p.previewOverride ?? previewUrl(p.url)}
+                    alt={`Preview do site ${p.name}`}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => {
+                      const t = e.currentTarget as HTMLImageElement;
+                      t.style.display = "none";
+                    }}
+                  />
+                  <span className="absolute left-4 top-4 z-10 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-gold-light backdrop-blur">
+                    Site no ar
+                  </span>
+                  <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                    <div className="absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-gold/25 to-transparent animate-shine" />
                   </div>
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold transition-all group-hover:bg-gold group-hover:text-primary-foreground group-hover:rotate-45">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
                 </div>
 
-                <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                  {p.description}
-                </p>
-
-                <div className="mt-5 flex flex-wrap items-center gap-2">
-                  {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-gold/20 bg-gold/5 px-3 py-1 text-[11px] font-medium text-gold-light"
-                    >
-                      {t}
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
+                        {p.category}
+                      </span>
+                      <h3 className="mt-1.5 font-serif text-2xl">{p.name}</h3>
+                    </div>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold transition-all group-hover:bg-gold group-hover:text-primary-foreground group-hover:rotate-45">
+                      <ArrowUpRight className="h-4 w-4" />
                     </span>
-                  ))}
-                  <span className="ml-auto inline-flex items-center gap-1 text-[11px] font-medium text-gold transition-colors group-hover:text-gold-light">
-                    <ExternalLink className="h-3 w-3" /> Visitar
-                  </span>
+                  </div>
+
+                  <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                    {p.description}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap items-center gap-2">
+                    {p.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-gold/20 bg-gold/5 px-3 py-1 text-[11px] font-medium text-gold-light"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                    <span className="ml-auto inline-flex items-center gap-1 text-[11px] font-medium text-gold transition-colors group-hover:text-gold-light">
+                      <ExternalLink className="h-3 w-3" /> Visitar
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
