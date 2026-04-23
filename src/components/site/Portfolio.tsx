@@ -1,190 +1,151 @@
-import { useEffect, useState } from "react";
-import { ArrowUpRight, ExternalLink, Github, Star } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 
-type Repo = {
-  id: number;
+type Project = {
   name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  language: string | null;
-  stargazers_count: number;
-  topics?: string[];
-  updated_at: string;
+  category: string;
+  url: string;
+  description: string;
+  tags: string[];
 };
 
-const GH_USER = "LionLobs";
+const projects: Project[] = [
+  {
+    name: "LionLobs",
+    category: "Site Institucional · Agência",
+    url: "https://www.lionlobs.com.br/",
+    description:
+      "Site oficial da agência LionLobs — presença digital premium, branding e captação de clientes.",
+    tags: ["Institucional", "Branding", "Performance"],
+  },
+  {
+    name: "Valdirení Alves",
+    category: "Site Profissional",
+    url: "https://valdirenialves.com.br",
+    description:
+      "Site profissional com identidade própria, agendamento e canais diretos de contato.",
+    tags: ["Profissional", "Agendamento", "Mobile-first"],
+  },
+  {
+    name: "Ma Correa Psicologia",
+    category: "Site para Psicóloga",
+    url: "https://www.macorreapsi.com.br/",
+    description:
+      "Presença digital sofisticada para psicóloga, com posicionamento de autoridade e CTA para consultas.",
+    tags: ["Saúde", "Autoridade", "Conversão"],
+  },
+  {
+    name: "Modelo Suplementos",
+    category: "E-commerce · Modelo",
+    url: "https://lionlobs.github.io/modelosite-suplementos/",
+    description:
+      "Modelo de loja virtual para suplementos — catálogo, destaques de produtos e checkout integrado.",
+    tags: ["E-commerce", "Catálogo", "Loja"],
+  },
+  {
+    name: "SC Laser",
+    category: "Clínica · App de Agendamento",
+    url: "https://cart-template-hub.vercel.app",
+    description:
+      "Modelo para clínicas grandes com aplicativo integrado de agendamento e cancelamento de serviços.",
+    tags: ["Clínica", "App", "Agendamento"],
+  },
+  {
+    name: "Camila Cavinatti",
+    category: "Smallbio Premium",
+    url: "https://camila-cavinatti-glow.vercel.app",
+    description:
+      "Smallbio premium com design exclusivo, links rastreáveis e identidade visual sofisticada.",
+    tags: ["Smallbio", "Personal Brand", "Premium"],
+  },
+];
 
-// Repos to hide from the portfolio
-const EXCLUDED = ["vanessa-clasen-archives", "vanessa-archives-collection", "cart-template-hub"];
-
-// Pretty title from slug
-const prettify = (slug: string) =>
-  slug
-    .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-
-// Live screenshot via microlink (free, no key needed for low volume)
+// Live screenshot via microlink (no API key needed for low volume)
 const previewUrl = (url: string) =>
   `https://api.microlink.io/?url=${encodeURIComponent(
     url
-  )}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800&waitFor=1500`;
+  )}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800&waitFor=2000`;
 
 export const Portfolio = () => {
-  const [repos, setRepos] = useState<Repo[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch(
-      `https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=30`
-    )
-      .then((r) => {
-        if (!r.ok) throw new Error("GitHub API");
-        return r.json() as Promise<Repo[]>;
-      })
-      .then((raw) => {
-        if (cancelled) return;
-        const data = raw.filter((r) => !EXCLUDED.includes(r.name.toLowerCase()));
-        // Prioritize repos with a homepage (live demo), then by stars/updated
-        const sorted = [...data].sort((a, b) => {
-          const ah = a.homepage ? 1 : 0;
-          const bh = b.homepage ? 1 : 0;
-          if (ah !== bh) return bh - ah;
-          if (b.stargazers_count !== a.stargazers_count)
-            return b.stargazers_count - a.stargazers_count;
-          return (
-            new Date(b.updated_at).getTime() -
-            new Date(a.updated_at).getTime()
-          );
-        });
-        setRepos(sorted.slice(0, 9));
-      })
-      .catch((e) => !cancelled && setError(e.message));
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   return (
     <section id="portfolio" className="relative overflow-hidden py-28">
       <div className="container-app">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-gold">
-              <Github className="h-3.5 w-3.5" /> Portfólio · GitHub @{GH_USER}
+            <span className="text-xs font-medium uppercase tracking-[0.3em] text-gold">
+              Portfólio
             </span>
             <h2 className="mt-4 font-serif text-4xl md:text-6xl">
               Projetos que <span className="text-gradient-gold italic">rugem</span> resultados
             </h2>
           </div>
-          <a
-            href={`https://github.com/${GH_USER}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-gold/10 hover:border-gold"
-          >
-            <Github className="h-4 w-4" /> Ver todos no GitHub
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+          <p className="max-w-md text-muted-foreground">
+            Uma seleção de cases entregues pela LionLobs — cada projeto construído com estratégia, design premium e tecnologia.
+          </p>
         </div>
 
-        {error && (
-          <p className="mt-10 text-sm text-muted-foreground">
-            Não foi possível carregar os repositórios agora. Acesse direto em{" "}
-            <a className="text-gold underline" href={`https://github.com/${GH_USER}`}>
-              github.com/{GH_USER}
-            </a>
-          </p>
-        )}
-
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {(repos ?? Array.from({ length: 6 })).map((r, i) => {
-            const repo = r as Repo | undefined;
-            return (
-              <article
-                key={repo?.id ?? i}
-                className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold"
-              >
-                {/* Preview / Skeleton */}
-                <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
-                  {repo?.homepage ? (
-                    <img
-                      src={previewUrl(repo.homepage)}
-                      alt={`Preview de ${repo.name}`}
-                      loading="lazy"
-                      className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).style.display = "none";
-                      }}
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <span className="font-serif text-6xl text-gradient-gold opacity-70">
-                        {repo?.name?.charAt(0).toUpperCase() ?? "•"}
-                      </span>
-                    </div>
-                  )}
-                  {/* Language badge */}
-                  {repo?.language && (
-                    <span className="absolute left-4 top-4 z-10 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-gold-light backdrop-blur">
-                      {repo.language}
-                    </span>
-                  )}
-                  {repo && repo.stargazers_count > 0 && (
-                    <span className="absolute right-4 top-4 z-10 inline-flex items-center gap-1 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium text-gold-light backdrop-blur">
-                      <Star className="h-3 w-3" /> {repo.stargazers_count}
-                    </span>
-                  )}
+          {projects.map((p) => (
+            <a
+              key={p.name}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-card/60 backdrop-blur transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold"
+            >
+              {/* Live website preview */}
+              <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
+                <img
+                  src={previewUrl(p.url)}
+                  alt={`Preview do site ${p.name}`}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => {
+                    const t = e.currentTarget as HTMLImageElement;
+                    t.style.display = "none";
+                  }}
+                />
+                <span className="absolute left-4 top-4 z-10 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-gold-light backdrop-blur">
+                  Site no ar
+                </span>
+                {/* Shine on hover */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-gold/25 to-transparent animate-shine" />
                 </div>
+              </div>
 
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
-                        {repo?.homepage ? "Site no ar" : "Repositório"}
-                      </span>
-                      <h3 className="mt-1.5 truncate font-serif text-2xl">
-                        {repo ? prettify(repo.name) : "Carregando…"}
-                      </h3>
-                    </div>
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold transition-all group-hover:bg-gold group-hover:text-primary-foreground group-hover:rotate-45">
-                      <ArrowUpRight className="h-4 w-4" />
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
+                      {p.category}
                     </span>
+                    <h3 className="mt-1.5 font-serif text-2xl">{p.name}</h3>
                   </div>
-
-                  {repo?.description && (
-                    <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                      {repo.description}
-                    </p>
-                  )}
-
-                  {repo && (
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      <a
-                        href={repo.html_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/5 px-3 py-1.5 text-[11px] font-medium text-gold-light transition-colors hover:border-gold/60"
-                      >
-                        <Github className="h-3 w-3" /> Código
-                      </a>
-                      {repo.homepage && (
-                        <a
-                          href={repo.homepage}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-full bg-gradient-gold px-3 py-1.5 text-[11px] font-semibold text-primary-foreground shadow-gold"
-                        >
-                          <ExternalLink className="h-3 w-3" /> Visitar site
-                        </a>
-                      )}
-                    </div>
-                  )}
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold transition-all group-hover:bg-gold group-hover:text-primary-foreground group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
                 </div>
-              </article>
-            );
-          })}
+
+                <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                  {p.description}
+                </p>
+
+                <div className="mt-5 flex flex-wrap items-center gap-2">
+                  {p.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-gold/20 bg-gold/5 px-3 py-1 text-[11px] font-medium text-gold-light"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                  <span className="ml-auto inline-flex items-center gap-1 text-[11px] font-medium text-gold transition-colors group-hover:text-gold-light">
+                    <ExternalLink className="h-3 w-3" /> Visitar
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>
