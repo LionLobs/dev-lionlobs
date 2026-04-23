@@ -2,6 +2,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink } from "lucide-re
 import { useEffect, useState } from "react";
 import suplementosPreview from "@/assets/portfolio-suplementos.jpg";
 import monaPreview from "@/assets/portfolio-mona.jpg";
+import destaquesPreview from "@/assets/portfolio-destaques.jpg";
 
 type Project = {
   name: string;
@@ -54,6 +55,15 @@ const projects: Project[] = [
     description:
       "Site oficial do evento Mona Floripa Fashion — moda, estratégia e posicionamento no Mona Beach Club.",
     tags: ["Evento", "Moda", "Branding"],
+  },
+  {
+    name: "Destaque-se · Josi Nascimento",
+    category: "Infoproduto · Página de Vendas",
+    url: "https://destaquesemasso.com.br/",
+    previewOverride: destaquesPreview,
+    description:
+      "Página de vendas profissional para infoproduto — copy persuasiva, prova social e CTAs de alta conversão.",
+    tags: ["Infoproduto", "Página de Vendas", "Conversão"],
   },
   {
     name: "Camila Cavinatti",
