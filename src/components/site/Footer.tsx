@@ -43,7 +43,7 @@ export const Footer = () => {
 
       <div className="container-app mt-10 flex flex-col items-center justify-between gap-3 border-t border-gold/10 pt-6 text-xs text-muted-foreground sm:flex-row">
         <p>© {new Date().getFullYear()} LionLobs · Agência Estratégica de Marketing</p>
-        <p>CEO & Fundadora · Agatha Scudero</p>
+        <p>Sócias-fundadoras · Agatha Scudero & Emanuelle</p>
       </div>
     </footer>
   );
