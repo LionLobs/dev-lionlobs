@@ -1,5 +1,6 @@
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import suplementosPreview from "@/assets/portfolio-suplementos.png";
+import monaPreview from "@/assets/portfolio-mona.png";
 
 type Project = {
   name: string;
@@ -43,6 +44,15 @@ const projects: Project[] = [
     description:
       "Modelo de loja virtual para suplementos — catálogo, destaques de produtos e checkout integrado.",
     tags: ["E-commerce", "Catálogo", "Loja"],
+  },
+  {
+    name: "Mona Floripa Fashion",
+    category: "Evento · Moda & Lifestyle",
+    url: "https://monafloripafashion.com/",
+    previewOverride: monaPreview,
+    description:
+      "Site oficial do evento Mona Floripa Fashion — moda, estratégia e posicionamento no Mona Beach Club.",
+    tags: ["Evento", "Moda", "Branding"],
   },
   {
     name: "Camila Cavinatti",
