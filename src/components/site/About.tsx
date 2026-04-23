@@ -43,14 +43,14 @@ export const About = () => {
           </div>
 
           {/* Artistic merged composition — both founders together, low opacity */}
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-gold/25 shadow-gold">
+          <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-gold/25 shadow-gold">
             {/* Base portrait — full color but muted */}
             <img
               src={foundersBg}
               alt="Agatha Scudero e Emanuelle, sócias-fundadoras da LionLobs"
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover opacity-70 animate-ken-burns"
-              style={{ filter: "contrast(1.05) saturate(0.85) brightness(0.85)" }}
+              className="absolute inset-0 h-full w-full object-contain md:object-cover opacity-80"
+              style={{ objectPosition: "center top", filter: "contrast(1.05) saturate(0.9) brightness(0.9)" }}
             />
             {/* Gold duotone wash */}
             <div
