@@ -6,6 +6,7 @@ type Project = {
   url: string;
   description: string;
   tags: string[];
+  previewOverride?: string;
 };
 
 const projects: Project[] = [
@@ -37,6 +38,8 @@ const projects: Project[] = [
     name: "Modelo Suplementos",
     category: "E-commerce · Modelo",
     url: "https://lionlobs.github.io/modelosite-suplementos/",
+    previewOverride:
+      "https://api.microlink.io/?url=https%3A%2F%2Flionlobs.github.io%2Fmodelosite-suplementos%2F&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800&waitFor=4000&force=true&v=2",
     description:
       "Modelo de loja virtual para suplementos — catálogo, destaques de produtos e checkout integrado.",
     tags: ["E-commerce", "Catálogo", "Loja"],
@@ -87,7 +90,7 @@ export const Portfolio = () => {
               {/* Live website preview */}
               <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
                 <img
-                  src={previewUrl(p.url)}
+                  src={p.previewOverride ?? previewUrl(p.url)}
                   alt={`Preview do site ${p.name}`}
                   loading="lazy"
                   className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
