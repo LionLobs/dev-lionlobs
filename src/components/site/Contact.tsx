@@ -69,7 +69,7 @@ export const Contact = () => {
               </div>
             </a>
             <a
-              href="mailto:contato@lionlobs.com"
+              href="mailto:lionlobs@gmail.com"
               className="group flex items-center gap-4 rounded-xl border border-gold/20 bg-card/60 p-5 transition-all hover:border-gold/50 hover:bg-gold/5"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-gold text-primary-foreground">
@@ -77,7 +77,7 @@ export const Contact = () => {
               </div>
               <div>
                 <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">E-mail</div>
-                <div className="font-medium">contato@lionlobs.com</div>
+                <div className="font-medium">lionlobs@gmail.com</div>
               </div>
             </a>
             <div className="grid gap-4 sm:grid-cols-2">

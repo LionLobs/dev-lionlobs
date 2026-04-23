@@ -41,7 +41,7 @@ export const Footer = () => {
                className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 text-gold-light transition-colors hover:bg-gold hover:text-primary-foreground">
               <Github className="h-4 w-4" />
             </a>
-            <a href="mailto:contato@lionlobs.com" aria-label="E-mail"
+            <a href="mailto:lionlobs@gmail.com" aria-label="E-mail"
                className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 text-gold-light transition-colors hover:bg-gold hover:text-primary-foreground">
               <Mail className="h-4 w-4" />
             </a>
