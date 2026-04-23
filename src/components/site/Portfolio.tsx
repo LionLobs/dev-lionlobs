@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import robotBg2 from "@/assets/robot-bg-2.jpg";
 
 const projects = [
   {
@@ -33,7 +34,16 @@ const projects = [
 
 export const Portfolio = () => {
   return (
-    <section id="portfolio" className="relative py-28">
+    <section id="portfolio" className="relative overflow-hidden py-28">
+      {/* Robotic hand background — left side, heavily shaded */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 -z-10 hidden w-[60%] bg-cover bg-center opacity-[0.15] md:block"
+        style={{ backgroundImage: `url(${robotBg2})` }}
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-l from-background via-background/95 to-background/30" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_25%,hsl(var(--background))_85%)]" aria-hidden />
+
       <div className="container-app">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
