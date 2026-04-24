@@ -121,7 +121,7 @@ export const Hero = () => {
               <span className="w-12" />
             </div>
             <div className="min-h-[280px] p-6 font-mono text-sm leading-relaxed">
-              {lines.slice(0, lineIdx).map((l, i) => (
+              {(isMobile ? lines : lines.slice(0, lineIdx)).map((l, i) => (
                 <div key={i} className="text-gold-light">{l}</div>
               ))}
               {!isMobile && (
