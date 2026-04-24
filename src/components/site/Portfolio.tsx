@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import suplementosPreview from "@/assets/portfolio-suplementos.jpg";
 import monaPreview from "@/assets/portfolio-mona.jpg";
 import destaquesPreview from "@/assets/portfolio-destaques.jpg";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Project = {
   name: string;
@@ -82,16 +83,17 @@ const previewUrl = (url: string) =>
   )}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800&waitFor=2000`;
 
 export const Portfolio = () => {
+  const isMobile = useIsMobile();
   const perPage = 2;
   const totalPages = Math.ceil(projects.length / perPage);
   const [page, setPage] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || isMobile) return;
     const id = setInterval(() => setPage((p) => (p + 1) % totalPages), 4500);
     return () => clearInterval(id);
-  }, [paused, totalPages]);
+  }, [isMobile, paused, totalPages]);
 
   const start = page * perPage;
   const visible = projects.slice(start, start + perPage);
@@ -133,9 +135,10 @@ export const Portfolio = () => {
               >
                 <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
                   <img
-                    src={p.previewOverride ?? previewUrl(p.url)}
+                    src={p.previewOverride ?? (isMobile ? undefined : previewUrl(p.url))}
                     alt={`Preview do site ${p.name}`}
                     loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     onError={(e) => {
                       const t = e.currentTarget as HTMLImageElement;

@@ -1,6 +1,7 @@
 import { Award, Target, Users } from "lucide-react";
 import foundersBg from "@/assets/founders-bg.jpg";
 import robotBg3 from "@/assets/robot-bg-3.jpg";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const pillars = [
   { icon: Target, title: "Estratégia primeiro", desc: "Cada projeto nasce de um diagnóstico real do seu negócio e do seu público." },
@@ -9,6 +10,8 @@ const pillars = [
 ];
 
 export const About = () => {
+  const isMobile = useIsMobile();
+
   return (
     <section id="sobre" className="relative overflow-hidden py-28">
       {/* Founders composition — background, low opacity, heavy shading */}
@@ -18,11 +21,13 @@ export const About = () => {
         aria-hidden
       />
       {/* Mechanical background blended below */}
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[60%] bg-cover bg-center opacity-[0.08]"
-        style={{ backgroundImage: `url(${robotBg3})` }}
-        aria-hidden
-      />
+      {!isMobile && (
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[60%] bg-cover bg-center opacity-[0.08]"
+          style={{ backgroundImage: `url(${robotBg3})` }}
+          aria-hidden
+        />
+      )}
       {/* Vignette + dark fades */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-background via-background/85 to-background" aria-hidden />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/40 to-background" aria-hidden />
@@ -30,17 +35,21 @@ export const About = () => {
 
       <div className="container-app grid gap-16 lg:grid-cols-2 lg:items-center">
         <div className="relative">
-          <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-20 blur-3xl" />
+          {!isMobile && <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-20 blur-3xl" />}
 
           {/* Decorative rotating rings */}
-          <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 opacity-30 animate-spin-slow">
-            <div className="ring-conic h-full w-full rounded-full" />
-            <div className="absolute inset-2 rounded-full bg-background" />
-          </div>
-          <div className="pointer-events-none absolute -bottom-12 right-10 h-24 w-24 opacity-40 animate-spin-reverse">
-            <div className="ring-conic h-full w-full rounded-full" />
-            <div className="absolute inset-1.5 rounded-full bg-background" />
-          </div>
+          {!isMobile && (
+            <>
+              <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 opacity-30 animate-spin-slow">
+                <div className="ring-conic h-full w-full rounded-full" />
+                <div className="absolute inset-2 rounded-full bg-background" />
+              </div>
+              <div className="pointer-events-none absolute -bottom-12 right-10 h-24 w-24 opacity-40 animate-spin-reverse">
+                <div className="ring-conic h-full w-full rounded-full" />
+                <div className="absolute inset-1.5 rounded-full bg-background" />
+              </div>
+            </>
+          )}
 
           {/* Artistic merged composition — both founders together, low opacity */}
           <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-gold/25 shadow-gold">
