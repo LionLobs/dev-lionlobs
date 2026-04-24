@@ -131,15 +131,20 @@ export const Portfolio = () => {
                   i === 0 ? "animate-slide-in-left" : "animate-slide-in-right"
                 }`}
               >
-                <div className="img-shaded relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
+                <div className="img-shaded relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br from-amber-900/20 to-black">
                   <img
                     src={p.previewOverride ?? previewUrl(p.url)}
                     alt={`Preview do site ${p.name}`}
                     loading="lazy"
-                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     onError={(e) => {
                       const t = e.currentTarget as HTMLImageElement;
-                      t.style.display = "none";
+                      if (p.previewOverride && t.src !== p.previewOverride) {
+                        t.src = p.previewOverride;
+                      } else {
+                        t.style.opacity = "0.2";
+                      }
                     }}
                   />
                   <span className="absolute left-4 top-4 z-10 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-gold-light backdrop-blur">
