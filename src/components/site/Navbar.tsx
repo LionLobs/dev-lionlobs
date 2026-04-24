@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo-lionlobs-white.png";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const links = [
   { href: "#servicos", label: "Serviços" },
@@ -12,24 +11,13 @@ const links = [
 ];
 
 export const Navbar = () => {
-  const isMobile = useIsMobile();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        const next = window.scrollY > 30;
-        setScrolled((prev) => (prev === next ? prev : next));
-        ticking = false;
-      });
-    };
-
+    const onScroll = () => setScrolled(window.scrollY > 30);
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -38,9 +26,7 @@ export const Navbar = () => {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? isMobile
-            ? "bg-background/95 border-b border-gold/10"
-            : "bg-background/85 backdrop-blur-xl border-b border-gold/10"
+          ? "bg-background/85 backdrop-blur-xl border-b border-gold/10"
           : "bg-transparent",
       )}
     >

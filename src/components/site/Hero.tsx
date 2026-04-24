@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, MousePointer2 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const lines = [
   "$ Olá, seja bem-vindo à LionLobs 👋",
@@ -10,17 +9,10 @@ const lines = [
 ];
 
 export const Hero = () => {
-  const isMobile = useIsMobile();
-  const [text, setText] = useState(isMobile ? lines[0] : "");
-  const [lineIdx, setLineIdx] = useState(isMobile ? lines.length : 0);
+  const [text, setText] = useState("");
+  const [lineIdx, setLineIdx] = useState(0);
 
   useEffect(() => {
-    if (isMobile) {
-      setText(lines[0]);
-      setLineIdx(lines.length);
-      return;
-    }
-
     if (lineIdx >= lines.length) return;
     const current = lines[lineIdx];
     let i = 0;
@@ -38,7 +30,7 @@ export const Hero = () => {
       }
     }, 45);
     return () => clearInterval(id);
-  }, [isMobile, lineIdx]);
+  }, [lineIdx]);
 
   return (
     <section id="top" className="relative isolate min-h-screen overflow-hidden pt-32">
@@ -56,8 +48,8 @@ export const Hero = () => {
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-background/20" aria-hidden />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/50 via-transparent to-background" aria-hidden />
       <div className="absolute inset-0 -z-10 shadow-[inset_0_0_200px_hsl(0_0%_0%/0.9)]" aria-hidden />
-      {!isMobile && <div className="absolute -top-40 -left-40 -z-10 h-[500px] w-[500px] rounded-full bg-gold/15 blur-[120px]" aria-hidden />}
-      {!isMobile && <div className="absolute bottom-0 right-0 -z-10 h-[400px] w-[400px] rounded-full bg-gold-deep/25 blur-[120px]" aria-hidden />}
+      <div className="absolute -top-40 -left-40 -z-10 h-[500px] w-[500px] rounded-full bg-gold/15 blur-[120px]" aria-hidden />
+      <div className="absolute bottom-0 right-0 -z-10 h-[400px] w-[400px] rounded-full bg-gold-deep/25 blur-[120px]" aria-hidden />
 
       <div className="container-app grid items-center gap-12 lg:grid-cols-2">
         <div className="animate-fade-up">
@@ -109,8 +101,8 @@ export const Hero = () => {
 
         {/* Terminal */}
         <div className="relative animate-fade-up" style={{ animationDelay: "200ms" }}>
-          {!isMobile && <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-gold opacity-30 blur-3xl" />}
-          <div className={`overflow-hidden rounded-2xl border border-gold/20 bg-card/80 ${isMobile ? "shadow-gold" : "backdrop-blur-xl shadow-glow"}`}>
+          <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-gold opacity-30 blur-3xl" />
+          <div className="overflow-hidden rounded-2xl border border-gold/20 bg-card/80 backdrop-blur-xl shadow-glow">
             <div className="flex items-center justify-between border-b border-gold/10 bg-background/40 px-4 py-3">
               <div className="flex gap-2">
                 <span className="h-3 w-3 rounded-full bg-red-500/80" />
@@ -121,15 +113,13 @@ export const Hero = () => {
               <span className="w-12" />
             </div>
             <div className="min-h-[280px] p-6 font-mono text-sm leading-relaxed">
-              {(isMobile ? lines : lines.slice(0, lineIdx)).map((l, i) => (
+              {lines.slice(0, lineIdx).map((l, i) => (
                 <div key={i} className="text-gold-light">{l}</div>
               ))}
-              {!isMobile && (
-                <div className="text-gold-light">
-                  {text}
-                  <span className="ml-0.5 inline-block h-4 w-2 -mb-0.5 bg-gold animate-blink" />
-                </div>
-              )}
+              <div className="text-gold-light">
+                {text}
+                <span className="ml-0.5 inline-block h-4 w-2 -mb-0.5 bg-gold animate-blink" />
+              </div>
             </div>
           </div>
         </div>

@@ -144,7 +144,7 @@ export const Services = () => {
                 loading="lazy"
                 width={1024}
                 height={768}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
               />
 
               {/* Creative shading: radial spotlight + bottom gradient + vignette + gold tint */}
