@@ -105,6 +105,10 @@
   .container-app {
     @apply mx-auto w-full max-w-7xl px-6 lg:px-10;
   }
+  .deferred-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
+  }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
@@ -231,4 +235,21 @@
   .animate-ken-burns,
   .animate-marquee,
   .animate-float { animation: none !important; }
+}
+
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+  .animate-spin-slow,
+  .animate-spin-reverse,
+  .animate-drift,
+  .animate-drift-alt,
+  .animate-marquee,
+  .animate-shine,
+  .animate-float,
+  .animate-pulse-ring {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }

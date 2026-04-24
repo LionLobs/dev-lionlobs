@@ -1,4 +1,5 @@
 import { Sparkles } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const items = [
   "Smallbio",
@@ -14,7 +15,26 @@ const items = [
 ];
 
 export const Marquee = () => {
+  const isMobile = useIsMobile();
   const loop = [...items, ...items];
+
+  if (isMobile) {
+    return (
+      <div className="relative overflow-hidden border-y border-gold/15 bg-card/30 py-4">
+        <div className="container-app overflow-x-auto no-scrollbar">
+          <div className="flex min-w-max gap-6 pr-6">
+            {items.map((it) => (
+              <div key={it} className="flex items-center gap-2 whitespace-nowrap">
+                <Sparkles className="h-4 w-4 text-gold" />
+                <span className="font-serif text-2xl italic text-gradient-gold">{it}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative overflow-hidden border-y border-gold/15 bg-card/30 py-6 backdrop-blur-sm">
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-background to-transparent" />
