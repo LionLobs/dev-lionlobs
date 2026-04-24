@@ -11,10 +11,16 @@ const lines = [
 
 export const Hero = () => {
   const isMobile = useIsMobile();
-  const [text, setText] = useState("");
-  const [lineIdx, setLineIdx] = useState(0);
+  const [text, setText] = useState(isMobile ? lines[0] : "");
+  const [lineIdx, setLineIdx] = useState(isMobile ? lines.length : 0);
 
   useEffect(() => {
+    if (isMobile) {
+      setText(lines[0]);
+      setLineIdx(lines.length);
+      return;
+    }
+
     if (lineIdx >= lines.length) return;
     const current = lines[lineIdx];
     let i = 0;
@@ -32,7 +38,7 @@ export const Hero = () => {
       }
     }, 45);
     return () => clearInterval(id);
-  }, [lineIdx]);
+  }, [isMobile, lineIdx]);
 
   return (
     <section id="top" className="relative isolate min-h-screen overflow-hidden pt-32">
@@ -118,10 +124,12 @@ export const Hero = () => {
               {lines.slice(0, lineIdx).map((l, i) => (
                 <div key={i} className="text-gold-light">{l}</div>
               ))}
-              <div className="text-gold-light">
-                {text}
-                <span className="ml-0.5 inline-block h-4 w-2 -mb-0.5 bg-gold animate-blink" />
-              </div>
+              {!isMobile && (
+                <div className="text-gold-light">
+                  {text}
+                  <span className="ml-0.5 inline-block h-4 w-2 -mb-0.5 bg-gold animate-blink" />
+                </div>
+              )}
             </div>
           </div>
         </div>
