@@ -237,12 +237,22 @@
   .animate-float { animation: none !important; }
 }
 
+/* Marquee track — leve no mobile, completo no desktop */
+.marquee-track {
+  animation: marquee 60s linear infinite;
+  will-change: transform;
+}
+@media (min-width: 768px) {
+  .marquee-track {
+    animation-duration: 40s;
+  }
+}
+
 @media (max-width: 767px), (hover: none) and (pointer: coarse) {
   .animate-spin-slow,
   .animate-spin-reverse,
   .animate-drift,
   .animate-drift-alt,
-  .animate-marquee,
   .animate-shine,
   .animate-float,
   .animate-pulse-ring {
