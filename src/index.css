@@ -105,6 +105,10 @@
   .container-app {
     @apply mx-auto w-full max-w-7xl px-6 lg:px-10;
   }
+  .deferred-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
+  }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }

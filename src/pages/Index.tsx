@@ -15,11 +15,21 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
-        <Marquee />
-        <Services />
-        <Portfolio />
-        <About />
-        <Contact />
+        <div className="deferred-section">
+          <Marquee />
+        </div>
+        <div className="deferred-section">
+          <Services />
+        </div>
+        <div className="deferred-section">
+          <Portfolio />
+        </div>
+        <div className="deferred-section">
+          <About />
+        </div>
+        <div className="deferred-section">
+          <Contact />
+        </div>
       </main>
       <Footer />
     </div>
